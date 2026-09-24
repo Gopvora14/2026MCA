@@ -58,4 +58,4 @@ async def upload_file(file: UploadFile = File(...)):
 
 # @app.get("/contactus")  # Visit Contact Us Page
 # def contactus():,
-#     return {"contact": "www.ganpatuniversity.ac.in"}
+#     return {"contact": "www.ganpatuniversity.ac.in"}  
