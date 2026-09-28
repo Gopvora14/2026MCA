@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.templating import Jinja2Templates
+from dotenv import load_dotenv
+import os
 
 app = FastAPI()
 
@@ -54,6 +56,12 @@ async def upload_file(file: UploadFile = File(...)):
         f.write(content)
 
     return {"message": "File Uploaded succesfully...."}
+
+@app.get ("/getENV")
+def get_env_variable():
+    return { templates.TemplateResponse(request,"Enviroment.html"):
+        "db_url":os.getenv ("DATABASE_URL"),
+    }
 
 
 # @app.get("/contactus")  # Visit Contact Us Page
