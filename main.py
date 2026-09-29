@@ -36,7 +36,11 @@ courses_list = [
 # add path of Templates
 templates = Jinja2Templates(directory="./templates")
 
+# Load Environment Variable
+load_dotenv()
 
+
+# Diffrent Routes
 @app.get("/")  # Vist Home Page
 def home(request: Request):
     return templates.TemplateResponse(request, "home.html", {"courses": courses_list})
@@ -57,13 +61,21 @@ async def upload_file(file: UploadFile = File(...)):
 
     return {"message": "File Uploaded succesfully...."}
 
-@app.get ("/getENV")
-def get_env_variable():
-    return { templates.TemplateResponse(request,"Enviroment.html"):
-        "db_url":os.getenv ("DATABASE_URL"),
+
+# Load Environmenet Variable
+@app.get("/getENV")
+def get_env_varaible(request: Request):
+    envSettings = {
+        "dbURL": os.getenv("DATABASE_URL"),
+        "appName": os.getenv("APP_NAME"),
+        "debugStatus": os.getenv("DEBUG"),
+        "secretKey": os.getenv("SECRET_KEY"),
     }
+    return templates.TemplateResponse(
+        request, "Enviromant.html", {"envSettings": envSettings}
+    )
 
 
 # @app.get("/contactus")  # Visit Contact Us Page
 # def contactus():,
-#     return {"contact": "www.ganpatuniversity.ac.in"}  
+#     return {"contact": "www.ganpatuniversity.ac.in"}
